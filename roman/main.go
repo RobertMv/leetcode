@@ -26,38 +26,40 @@ Given a roman numeral, convert it to an integer.
 */
 
 func main() {
-	fmt.Println(romanToInt("III"))
-	fmt.Println(romanToInt("LVIII"))
+	fmt.Println(romanToInt("III"))     // 3
+	fmt.Println(romanToInt("LVIII"))   // 58
 	fmt.Println(romanToInt("MCMXCIV")) // M(1000) + CM(900) + XC(90) + IV(4) = 1994
 }
 
 func romanToInt(s string) int {
-	romanIntMap := make(map[string]int, 13)
-	romanIntMap["I"] = 1
-	romanIntMap["IV"] = 4
-	romanIntMap["V"] = 5
-	romanIntMap["IX"] = 9
-	romanIntMap["X"] = 10
-	romanIntMap["XL"] = 40
-	romanIntMap["L"] = 50
-	romanIntMap["XC"] = 90
-	romanIntMap["C"] = 100
-	romanIntMap["CD"] = 400
-	romanIntMap["D"] = 500
-	romanIntMap["CM"] = 900
-	romanIntMap["M"] = 1000
+	romanIntMap := map[string]int{
+		"I":  1,
+		"IV": 4,
+		"V":  5,
+		"IX": 9,
+		"X":  10,
+		"XL": 40,
+		"L":  50,
+		"XC": 90,
+		"C":  100,
+		"CD": 400,
+		"D":  500,
+		"CM": 900,
+		"M":  1000,
+	}
 
-	result := 0
-	curr, next := "", ""
+	var (
+		result, i  = 0, 0
+		curr, next = "", ""
+	)
 
-	i := 0
-	for {
+	for i < len(s) {
 		if i == len(s)-1 {
 			result += romanIntMap[string(s[i])]
 			return result
 		}
+
 		curr = string(s[i])
-		// C=100						M=1000
 		next = string(s[i+1])
 		if romanIntMap[curr] < romanIntMap[next] {
 			result += romanIntMap[fmt.Sprintf("%s%s", curr, next)]
@@ -65,24 +67,9 @@ func romanToInt(s string) int {
 		} else {
 			result += romanIntMap[curr]
 		}
+
 		i++
 	}
+
+	return result
 }
-
-/*
-Symbol       Value
-I             1
-V             5
-X             10
-L             50
-C             100
-D             500
-M             1000
-
-IV			4
-IX			9
-XL			40
-XC			90
-CD			400
-CM			900
-*/
