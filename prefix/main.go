@@ -18,8 +18,8 @@ func main() {
 
 func longestCommonPrefix(strs []string) string {
 	sb := strings.Builder{}
-	base := strs[0]
-	k := 0 // index for each symbol in a separate string
+	//base := strs[0]
+	//k := 0 // index for each symbol in a separate string
 
 	// взять первую строку за базовую и в каждой последующей сравнивать символы, что не сошлось - на каждом шаге отсекать
 
